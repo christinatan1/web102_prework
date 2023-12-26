@@ -80,3 +80,19 @@ button {
     margin: 1%;
     border-radius: 7px;
 }
+
+#search-books {
+    margin-right: auto; /* This pushes the search form to the right */
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    margin-right: 5px; /* Add some space between input and button */
+}
+
+#search-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

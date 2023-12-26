@@ -185,3 +185,37 @@ firstGameContainer.appendChild(firstGameCard);
 const secondGameCard = document.createElement("div");
 secondGameCard.innerHTML = `<p>${secondGame.name}</p>`;
 secondGameContainer.appendChild(secondGameCard);
+
+/************************************************************************************
+ * Bonus: Search functionality
+*/
+
+function searchGames(event) {
+    event.preventDefault();
+
+    deleteChildElements(gamesContainer);
+    var searchTerm = event.target.elements['search'].value;
+
+    var tokens = searchTerm
+                  .toLowerCase()
+                  .split(' ')
+                  .filter(function(token){
+                    return token.trim() !== '';
+                  });
+    var searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+    let filteredList = GAMES_JSON.filter(function(games){
+        // Create a string of all object values
+        var gamesString = '';
+        for(var key in games) {
+          if(games.hasOwnProperty(key) && games[key] !== '') {
+            gamesString += games[key].toString().toLowerCase().trim() + ' ';
+          }
+        }
+        return gamesString.match(searchTermRegex);
+    });
+
+    addGamesToPage(filteredList);
+}
+
+const searchBtn = document.getElementById("search-games");
+searchBtn.addEventListener("submit", searchGames);
